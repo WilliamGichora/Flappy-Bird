@@ -1,10 +1,14 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class Flappybird extends JPanel{
+public class Flappybird extends JPanel implements ActionListener{
     int boardwidth = 360;
     int boardheight = 640;
 
@@ -32,6 +36,8 @@ public class Flappybird extends JPanel{
     
     Bird bird;
 
+    Timer gameloop;
+
     Flappybird() {
         setPreferredSize(new Dimension(boardwidth, boardheight));
        
@@ -41,12 +47,21 @@ public class Flappybird extends JPanel{
         bottomPipeImg = new ImageIcon("Images\\bottompipe.png").getImage();
 
         bird = new Bird(birdImage);
+        
+        gameloop = new Timer(1000 / 60, this);
+        gameloop.start();
     }
     
     @Override
     protected void paintComponent(Graphics g) {
+        //System.out.println("draw");
         super.paintComponent(g);
         g.drawImage(bgImage, 0, 0, boardwidth, boardheight, null);
-        g.drawImage(bird.img, birdX, birdY, birdwidth, birdheight, this);
+        g.drawImage(bird.img, bird.x, bird.y, bird.width, bird.height, null);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
     }
 }
