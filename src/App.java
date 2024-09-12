@@ -17,6 +17,7 @@ public class App {
         frame.add(flappybird);
         frame.pack();
 
+        //flappybird.requestFocus();
         frame.setVisible(true);
 
     }
